@@ -1,0 +1,28 @@
+Function RemoveDuplicates(cellContent As String) As String
+    Dim words() As String
+    Dim wordDict As Object
+    Dim result As String
+    Dim i As Integer
+    
+    Set wordDict = CreateObject("Scripting.Dictionary")
+    
+    ' Séparer les mots par des virgules
+    words = Split(cellContent, ",")
+    
+    ' Parcourir les mots
+    For i = LBound(words) To UBound(words)
+        Dim w As String
+        w = Trim(words(i)) ' supprimer les espaces avant/après
+        If Not wordDict.Exists(w) Then
+            wordDict.Add w, 1
+            ' Ajouter au résultat
+            If result = "" Then
+                result = w
+            Else
+                result = result & ", " & w
+            End If
+        End If
+    Next i
+    
+    RemoveDuplicates = result
+End Function
